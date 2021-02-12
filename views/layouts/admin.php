@@ -39,10 +39,12 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             ['label' => 'Главная', 'url' => ['/']],
-            ['label' => 'Книги', 'url' => ['/site/book/index']],
-            ['label' => 'Категории', 'url' => ['/site/category/index']],
+            ['label' => 'Книги', 'url' => ['/admin/book/index']],
+            ['label' => 'Категории', 'url' => ['/admin/category/index']],
+            ['label' => 'Пользователи', 'url' => ['/admin/user/index']],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Вход', 'url' => ['/site/login']]
+                
             ) : (
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post')
@@ -69,7 +71,7 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
+        <p class="pull-left">&copy; CRUD Книги <?= date('Y') ?></p>
 
         <p class="pull-right"><?= Yii::powered() ?></p>
     </div>
