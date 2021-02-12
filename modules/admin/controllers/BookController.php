@@ -8,6 +8,8 @@ use app\models\BookSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\models\ImageUpload;
+use yii\web\UploadedFile;
 
 /**
  * BookController implements the CRUD actions for Book model.
@@ -123,5 +125,23 @@ class BookController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionSetImage($id)
+    {
+        $model = new ImageUpload;
+
+        if (Yii::$app->request->isPost)
+        {
+            $book = $this->findModel($id);
+            $file = UploadedFile::getInstance($model, 'image');
+
+            if($book->saveImage($model->uploadFile($file, $book->image)))
+            {
+                return $this->redirect(['view', 'id'=>$book->id]);
+            }
+        }
+        
+        return $this->render('image', ['model'=>$model]);
     }
 }
